@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[ToDo]
+(
+	[ToDoId] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [Name] NVARCHAR(50) NOT NULL, 
+    [Priority] INT NOT NULL DEFAULT 3, 
+    [Deadline] DATE NULL, 
+    [DateCreated] DATETIME2 NOT NULL DEFAULT GETUTCDATE()
+)
