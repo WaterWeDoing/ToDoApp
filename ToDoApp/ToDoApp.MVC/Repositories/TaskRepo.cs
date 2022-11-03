@@ -5,7 +5,7 @@ using ToDoApp.MVC.Models;
 
 namespace ToDoApp.MVC.Repositories
 {
-    public class TaskRepo
+    public class TaskRepo : ITaskRepo
     {
         private readonly IConfiguration _config;
 
@@ -22,6 +22,15 @@ namespace ToDoApp.MVC.Repositories
 
             List<TaskModel> output = (await dbConnection.QueryAsync<TaskModel>("spTask_GetAll", commandType: CommandType.StoredProcedure)).ToList();
             return output;
+        }
+
+        public async Task<List<TaskModel>> GetTasks(int todoId)
+        {
+            string connString = _config.GetConnectionString("ToDoDb");
+            using IDbConnection dbConnection = new SqlConnection(connString);
+
+            List<TaskModel> tasks = (await dbConnection.QueryAsync<TaskModel>("spTask_GetbyTodo", new { todoId = todoId }, commandType: CommandType.StoredProcedure)).ToList();
+            return tasks;
         }
 
         public async Task Create(TaskModel task)

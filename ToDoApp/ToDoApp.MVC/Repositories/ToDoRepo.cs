@@ -6,7 +6,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace ToDoApp.MVC.Repositories
 {
-    public class ToDoRepo
+    public class ToDoRepo : IToDoRepo
     {
         private readonly IConfiguration _config;
 
@@ -29,7 +29,7 @@ namespace ToDoApp.MVC.Repositories
             string connString = _config.GetConnectionString("ToDoDb");
             using IDbConnection dbConnection = new SqlConnection(connString);
 
-            todo.ToDoId = await dbConnection.QuerySingleAsync<int>("spToDo_Create", new {Name = todo.Name, Priority = todo.Priority, Deadline = todo.Deadline }, commandType: CommandType.StoredProcedure);
+            todo.ToDoId = await dbConnection.QuerySingleAsync<int>("spToDo_Create", new { Name = todo.Name, Priority = todo.Priority, Deadline = todo.Deadline }, commandType: CommandType.StoredProcedure);
         }
 
         public async Task Update(ToDoModel todo)

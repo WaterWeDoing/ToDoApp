@@ -1,7 +1,11 @@
+using ToDoApp.MVC.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<ITaskRepo, TaskRepo>();
+builder.Services.AddSingleton<IToDoRepo, ToDoRepo>();
 
 var app = builder.Build();
 
