@@ -1,7 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[spTask_Create]
 	@Name nvarchar(50),
 	@Priority int,
-	@Deadline date
+	@Deadline date,
+	@ToDoId int
 	
 AS
 BEGIN
@@ -9,13 +10,15 @@ BEGIN
 	(
 		[Name],
 		[Priority],
-		Deadline
+		Deadline,
+		ToDoId
 	)
 	VALUES
 	(
 		@Name,
 		@Priority,
-		@Deadline
+		@Deadline,
+		@ToDoId
 	);
 
 	SELECT SCOPE_IDENTITY();

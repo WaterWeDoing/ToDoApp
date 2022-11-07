@@ -4,6 +4,27 @@
 @model Dictionary<ToDoModel, List<TaskModel>>
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    
+    <centered><h2><u>To Do List</u></h2></centered>
+    <hr />
+    <table>
+        <tbody>
+            @foreach (var todo in Model)
+            {
+                <tr>
+                    <td>
+                        <ul>
+                            <li>
+                                <a class="nav-link" asp-for="@todo.Value." href="Home/DisplayTasks/@todo.Key.ToDoId">@todo.Key.Name</a>
+                            </li>
+                        </ul>
+                    </td>                      
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <br />
+    <hr />
+    <CENTER><a class="btn btn-primary" href="Home/AddToDo" role="button">Add To Do</a></CENTER>
 </div>

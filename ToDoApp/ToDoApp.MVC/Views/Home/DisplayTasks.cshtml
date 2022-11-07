@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "DisplayTasks";
+}
+@model Dictionary<int, TaskModel>
+
+<h1>Tasks</h1>
+
+<div>
+    <ul>
+    @foreach (var mod in Model)
+    {
+        
+            <li>@mod.Value.Name</li>
+            <li>@mod.Value.Priority</li>
+            <li>@mod.Value.Deadline</li>
+    }
+    </ul>
+
+</div>
+
