@@ -6,6 +6,7 @@ namespace ToDoApp.MVC.Repositories
     {
         Task Create(ToDoModel todo);
         Task Delete(int id);
+        Task<ToDoModel> Get(int id);
         Task<List<ToDoModel>> GetAll();
         Task Update(ToDoModel todo);
     }

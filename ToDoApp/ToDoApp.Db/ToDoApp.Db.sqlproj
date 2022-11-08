@@ -73,6 +73,7 @@
     <Build Include="dbo\StoredProcedures\spTask_Update.sql" />
     <Build Include="dbo\StoredProcedures\spTask_Delete.sql" />
     <Build Include="dbo\StoredProcedures\spTask_GetbyTodo.sql" />
+    <Build Include="dbo\StoredProcedures\spToDo_Get.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ToDoApp.Db.refactorlog" />

@@ -15,7 +15,7 @@
                     <td>
                         <ul>
                             <li>
-                                <a class="nav-link" asp-for="@todo.Value." href="Home/DisplayTasks/@todo.Key.ToDoId">@todo.Key.Name</a>
+                                <a class="nav-link" asp-action="DisplayTasks" asp-route-id="@todo.Key.ToDoId" >@todo.Key.Name</a>
                             </li>
                         </ul>
                     </td>                      

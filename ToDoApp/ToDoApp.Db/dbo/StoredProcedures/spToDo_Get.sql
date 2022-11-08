@@ -1,18 +1,18 @@
-﻿CREATE PROCEDURE [dbo].[spTask_GetbyTodo]
+﻿CREATE PROCEDURE [dbo].[spToDo_Get]
 	@ToDoId int
+
 
 AS
 BEGIN
 	SELECT
-		[TaskId], 
 		[ToDoId], 
 		[Name], 
 		[Priority], 
 		[Deadline], 
 		[DateCreated]
 	FROM
-		Task
+		ToDo
 	WHERE
-		ToDoId = @ToDoId
-	ORDER BY [Priority];
+		ToDoId = @ToDoId;
 END
+

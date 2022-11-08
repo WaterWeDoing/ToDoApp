@@ -2,34 +2,26 @@
     ViewData["Title"] = "AddToDo";
 }
 @model ToDoModel
-<h1>Add To-Do</h1>
-<br />
-<br />
+<header class="mb-5"><h1 class="text-center">Add To-Do</h1></header>
 <form id="AddToDoForm" asp-action="AddToDo" method="post">
-    <label>To-Do Name</label>
-    <br />
-    <input type="text" asp-for="Name" placeholder="Enter Task Name Here...." />
-    <br />
-    <br />
-    <label>Prioriry Level</label>
-    <br />
-    <select class="form-select; colspan-3" asp-for="Priority" aria-label="PriorityLevel">
-        <option selected value="1">One (High)</option>
-        <option value="2">Two (Medium)</option>
-        <option value="3">Three (Low)</option>
-    </select>
-    <Br />
-    <br />
-    <label>Deadline Date</label>
-    <br />
-    <input type="date" asp-for="Deadline" name="trip-start"
-           value="2018-07-22"
-           min="2018-01-01" max="2018-12-31">
-    <br />
-    <Br />
-    <label for="exampleFormControlTextarea1" class="form-label"></label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-    <br />
-    <br />
-    <button type="submit" class="btn btn-primary">Save To-Do</button>
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">To-Do Name</label>
+        <input class="form-control" asp-for="Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Priority" class="form-label">Priority</label>
+        <select class="form-select">
+            <option selected value="1">One (High)</option>
+            <option value="2">Two (Medium)</option>
+            <option value="3">Three (Low)</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Deadline">DeadLine</label>
+        <input type="date" class="form-control" asp-for="Deadline" name="trip-start"
+               value="@DateTime.Today.ToString("yyyy-MM-dd")"
+               min="@DateTime.Today.ToString("yyyy-MM-dd")">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>

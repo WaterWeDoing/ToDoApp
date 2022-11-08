@@ -1,21 +1,43 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "DisplayTasks";
 }
-@model Dictionary<int, TaskModel>
+@model TodoTaskViewModel
 
-<h1>Tasks</h1>
+<h1>Tasks for @Model.ToDo.Name</h1>
 
 <div>
-    <ul>
-    @foreach (var mod in Model)
+    @foreach (var task in Model.Tasks)
     {
-        
-            <li>@mod.Value.Name</li>
-            <li>@mod.Value.Priority</li>
-            <li>@mod.Value.Deadline</li>
+        <ul class="list-group my-3">
+            <li class="list-group-item">
+                <span><strong>Name: &nbsp;</strong></span>
+                <input class="form-check-input me-1" id="@task.TaskId" type="checkbox">
+                <label class="form-check-label stretched-link" for="@task.TaskId">@task.Name</label>
+            </li>
+            <li class="list-group-item"><strong>Priority: &nbsp;</strong>@task.Priority</li>
+            @if (@task.Deadline != null)
+            {
+                <li class="list-group-item"><strong>Deadline: &nbsp;</strong>@task.Deadline</li>
+            }
+        </ul>
     }
-    </ul>
+</div>
+<div id="result">
+
+</div>
+<div>
+    <a class="btn btn-primary" asp-action="AddTasks" asp-route-id="@Model.ToDo.ToDoId" role="button">Add New Task</a>
+    <button class="btn btn-primary" id="btnTest">Add New Task</button> 
 
 </div>
 
+@section Scripts
+{
+    <script>$(()=>{
+        $("#btnTest").click(()=>{
+        $( "#result" ).load('@Url.Action("SomethingElse")');
+            
+            })
+    })</script>
+
+}

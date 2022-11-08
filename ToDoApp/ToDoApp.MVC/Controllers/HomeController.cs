@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using ToDoApp.MVC.Models;
+using ToDoApp.MVC.Models.ViewModels;
 using ToDoApp.MVC.Repositories;
 
 namespace ToDoApp.MVC.Controllers
@@ -29,39 +30,56 @@ namespace ToDoApp.MVC.Controllers
                 output.Add(todo, task);
             }
 
-            
+
             return View(output);
         }
 
-        public async Task<IActionResult> DisplayTasks(int todoId, TaskModel task)
-        { 
-            Dictionary<int, TaskModel> output = new Dictionary<int, TaskModel>();
-            List<TaskModel> taskList = await _taskRepo.GetAll();
-
-            //I need to somehow get the todoId from the Index page. Page redirects to task page when clicked on the ToDo in the Index, but needs to pass the Id to the parameter. Viewbag or View model????
-            foreach (var t in taskList)
-            {
-                if (task.ToDoId == todoId)
-                {
-                    output.Add(todoId, t);
-                    task.ToDoId = t.ToDoId;
-                }
-            }
-            
-            return View(output);
-        }
-
-        public IActionResult AddTasks(int todoId, TaskModel task)
+        [HttpGet]
+        public async Task<IActionResult> DisplayTasks(int id)
         {
-            task.ToDoId = todoId;
+            ToDoModel todo = await _toDoRepo.Get(id);
+            List<TaskModel> tasks = await _taskRepo.GetTasks(todo.ToDoId);
+
+            return View(new TodoTaskViewModel
+            {
+                ToDo = todo,
+                Tasks = tasks
+            });
+        }
+        [HttpGet]
+        public IActionResult AddTasks(int id)
+        {
+            return View();
+        }
+
+        public IActionResult SomethingElse()
+        {
+            return PartialView("_TestPartial", new ToDoModel { Name = "test"});
+        }
+
+        [HttpPost]
+        public IActionResult AddTasks(int id, TaskModel task)
+        {
+            task.ToDoId = id;
             _taskRepo.Create(task);
             return View(task);
         }
 
-        public IActionResult AddToDo(ToDoModel todo)
+        [HttpPost]
+        public async Task<IActionResult> AddToDo(ToDoModel todo)
         {
-            _toDoRepo.Create(todo);
+            if (ModelState.IsValid)
+            {
+                await _toDoRepo.Create(todo);
+                return RedirectToAction(nameof(AddTasks), new { id = todo.ToDoId});
+            }
             return View(todo);
+        }
+
+        [HttpGet]
+        public IActionResult AddToDo()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
