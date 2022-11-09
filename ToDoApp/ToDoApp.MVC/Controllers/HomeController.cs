@@ -46,24 +46,28 @@ namespace ToDoApp.MVC.Controllers
                 Tasks = tasks
             });
         }
-        [HttpGet]
-        public IActionResult AddTasks(int id)
-        {
-            return View();
-        }
-
-        public IActionResult SomethingElse()
-        {
-            return PartialView("_TestPartial", new ToDoModel { Name = "test"});
-        }
+        
 
         [HttpPost]
-        public IActionResult AddTasks(int id, TaskModel task)
+        public async Task<IActionResult> AddTasks(TaskModel task)
         {
-            task.ToDoId = id;
-            _taskRepo.Create(task);
-            return View(task);
+            if (ModelState.IsValid)
+            {
+                await _taskRepo.Create(task);
+            }
+            else
+            {
+                TempData["error"] = true;
+            }
+            return RedirectToAction(nameof(DisplayTasks), new { id = task.ToDoId});
         }
+
+        public IActionResult DisplayTasksPartial(int id)
+        {
+            return PartialView("_AddTasks", new TaskModel { ToDoId = id });
+        }
+
+        
 
         [HttpPost]
         public async Task<IActionResult> AddToDo(ToDoModel todo)
@@ -71,7 +75,7 @@ namespace ToDoApp.MVC.Controllers
             if (ModelState.IsValid)
             {
                 await _toDoRepo.Create(todo);
-                return RedirectToAction(nameof(AddTasks), new { id = todo.ToDoId});
+                return RedirectToAction(nameof(DisplayTasks), new { id = todo.ToDoId});
             }
             return View(todo);
         }

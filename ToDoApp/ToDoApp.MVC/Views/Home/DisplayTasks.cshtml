@@ -3,6 +3,13 @@
 }
 @model TodoTaskViewModel
 
+@if (TempData["error"] != null)
+{
+<div class="alert alert-danger" role="alert">
+  SOMETHING BROKE!
+</div>
+}
+
 <h1>Tasks for @Model.ToDo.Name</h1>
 
 <div>
@@ -17,27 +24,21 @@
             <li class="list-group-item"><strong>Priority: &nbsp;</strong>@task.Priority</li>
             @if (@task.Deadline != null)
             {
-                <li class="list-group-item"><strong>Deadline: &nbsp;</strong>@task.Deadline</li>
+                <li class="list-group-item"><strong>Deadline: &nbsp;</strong>@task.Deadline.Value.ToShortDateString()</li>
             }
         </ul>
     }
 </div>
-<div id="result">
 
-</div>
 <div>
-    <a class="btn btn-primary" asp-action="AddTasks" asp-route-id="@Model.ToDo.ToDoId" role="button">Add New Task</a>
-    <button class="btn btn-primary" id="btnTest">Add New Task</button> 
-
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add a Task</button>
 </div>
+
+
+        @await Html.PartialAsync("_AddTaskModal", Model.ToDo.ToDoId)
 
 @section Scripts
 {
-    <script>$(()=>{
-        $("#btnTest").click(()=>{
-        $( "#result" ).load('@Url.Action("SomethingElse")');
-            
-            })
-    })</script>
 
+        @await Html.PartialAsync("_ValidationScriptsPartial")
 }

@@ -1,0 +1,33 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model TaskModel
+@{
+}
+
+<header class="mb-3 mt-3"><h1 class="text-center">Add a Task</h1></header>
+<form id="AddTaskForm" asp-action="AddTasks" method="post">
+    @Html.HiddenFor(t=>t.ToDoId)
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Task Name</label>
+        <input class="form-control" asp-for="Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Priority" class="form-label">Priority</label>
+        <select class="form-select">
+            <option selected value="1">One (High)</option>
+            <option value="2">Two (Medium)</option>
+            <option value="3">Three (Low)</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Deadline">DeadLine</label>
+        <input type="date" class="form-control" asp-for="Deadline"
+               value="@DateTime.Today.ToString("yyyy-MM-dd")"
+               min="@DateTime.Today.ToString("yyyy-MM-dd")">
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
