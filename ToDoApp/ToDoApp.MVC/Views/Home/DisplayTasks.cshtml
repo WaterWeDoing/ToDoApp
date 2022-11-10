@@ -5,9 +5,9 @@
 
 @if (TempData["error"] != null)
 {
-<div class="alert alert-danger" role="alert">
-  SOMETHING BROKE!
-</div>
+    <div class="alert alert-danger" role="alert">
+        SOMETHING BROKE!
+    </div>
 }
 
 <h1>Tasks for @Model.ToDo.Name</h1>
@@ -17,9 +17,17 @@
     {
         <ul class="list-group my-3">
             <li class="list-group-item">
-                <span><strong>Name: &nbsp;</strong></span>
-                <input class="form-check-input me-1" id="@task.TaskId" type="checkbox">
-                <label class="form-check-label stretched-link" for="@task.TaskId">@task.Name</label>
+                <span>
+                    <label><input class="form-check-input me-1 mb-1 mt-1 " id="@task.TaskId" type="checkbox"><strong>&nbsp; Completed</strong></label>
+                    <a class="btn btn-primary mt-1" style="position: absolute; right: 1%;" asp-action="DeleteTask" asp-route-id="@task.TaskId" role="button">Delete Task</a>                    
+                        <button type="button" class="btn btn-primary mt-1" style="position: absolute; right: 10%;" asp data-bs-toggle="modal" data-bs-target="#EditTaskModal">Edit Task</button>
+
+                </span>
+                <div>
+                    <span><strong>Name: &nbsp;</strong></span>
+
+                    <label class="form-check-label" for="@task.TaskId">@task.Name</label>
+                </div>
             </li>
             <li class="list-group-item"><strong>Priority: &nbsp;</strong>@task.Priority</li>
             @if (@task.Deadline != null)
@@ -35,7 +43,8 @@
 </div>
 
 
-        @await Html.PartialAsync("_AddTaskModal", Model.ToDo.ToDoId)
+@await Html.PartialAsync("_AddTaskModal", Model.ToDo.ToDoId)
+@await Html.PartialAsync("_EditTasksModal", Model.ToDo.ToDoId)
 
 @section Scripts
 {

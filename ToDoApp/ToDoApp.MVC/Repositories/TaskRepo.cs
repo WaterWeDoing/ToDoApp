@@ -14,6 +14,14 @@ namespace ToDoApp.MVC.Repositories
             _config = config;
         }
 
+        public async Task<TaskModel> Get(int id)
+        {
+            string connString = _config.GetConnectionString("ToDoDb");
+            using IDbConnection dbConnection = new SqlConnection(connString);
+
+            TaskModel task = await dbConnection.QuerySingleOrDefaultAsync<TaskModel>("spTask_Get", new { TaskId = id }, commandType: CommandType.StoredProcedure);
+            return task;
+        }
 
         public async Task<List<TaskModel>> GetAll()
         {

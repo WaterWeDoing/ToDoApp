@@ -46,7 +46,15 @@ namespace ToDoApp.MVC.Controllers
                 Tasks = tasks
             });
         }
-        
+
+        public async Task<IActionResult> UpdateTask(TaskModel task, int id)
+        {
+            task.ToDoId = id;
+            await _taskRepo.Update(task);
+            
+            return RedirectToAction(nameof(DisplayTasks), new { id = task.ToDoId });
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> AddTasks(TaskModel task)
@@ -85,6 +93,18 @@ namespace ToDoApp.MVC.Controllers
         {
             return View();
         }
+
+       
+
+        
+        public async Task<IActionResult> DeleteTask(int id)
+        {
+            TaskModel task = await _taskRepo.Get(id);
+            await _taskRepo.Delete(task.TaskId);
+            return RedirectToAction(nameof(DisplayTasks), new {id =  task.ToDoId});
+        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -4,7 +4,7 @@
 @model Dictionary<ToDoModel, List<TaskModel>>
 
 <div class="text-center">
-    
+
     <centered><h2><u>To Do List</u></h2></centered>
     <hr />
     <table>
@@ -13,12 +13,16 @@
             {
                 <tr>
                     <td>
-                        <ul>
-                            <li>
-                                <a class="nav-link" asp-action="DisplayTasks" asp-route-id="@todo.Key.ToDoId" >@todo.Key.Name</a>
-                            </li>
-                        </ul>
-                    </td>                      
+                        <div style="text-align: center;">
+                            <ul>
+                                <li>
+                                    <a class="nav-link" asp-action="DisplayTasks" asp-route-id="@todo.Key.ToDoId">@todo.Key.Name</a>
+                                    <a class="btn btn-primary mt-1" style="position: absolute; right: 7%;" asp-action="DeleteTodo" asp-route-id="@todo.Key.ToDoId" role="button">Delete</a>
+                                    <a class="btn btn-primary mt-1" style="position: absolute; right: 12%;" asp-route-id="@todo.Key.ToDoId" role="button">Edit</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
                 </tr>
             }
         </tbody>

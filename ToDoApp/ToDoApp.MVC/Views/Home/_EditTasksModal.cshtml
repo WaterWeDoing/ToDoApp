@@ -1,0 +1,18 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model TaskModel
+
+<div class="modal fade" id="EditTaskModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog-centered modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" >
+        <h1 class="modal-title fs-5"  id="exampleModalLabel">Update Task</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        @await Html.PartialAsync("_EditTasks", new TaskModel { ToDoId = Model.ToDoId})
+      </div>
+    </div>
+  </div>
+</div>
