@@ -54,7 +54,7 @@ namespace ToDoApp.MVC.Repositories
             string connString = _config.GetConnectionString("ToDoDb");
             using IDbConnection dbConnection = new SqlConnection(connString);
 
-            await dbConnection.ExecuteAsync("spTask_Update", new { TaskId = task.ToDoId, Name = task.Name, Priority = task.Priority, Deadline = task.Deadline }, commandType: CommandType.StoredProcedure);
+            await dbConnection.ExecuteAsync("spTask_Update", new { TaskId = task.TaskId, Name = task.Name, Priority = task.Priority, Deadline = task.Deadline }, commandType: CommandType.StoredProcedure);
         }
 
         public async Task Delete(int id)

@@ -47,9 +47,9 @@ namespace ToDoApp.MVC.Controllers
             });
         }
 
-        public async Task<IActionResult> UpdateTask(TaskModel task, int id)
+        public async Task<IActionResult> UpdateTask(TaskModel task)
         {
-            task.ToDoId = id;
+            
             await _taskRepo.Update(task);
             
             return RedirectToAction(nameof(DisplayTasks), new { id = task.ToDoId });

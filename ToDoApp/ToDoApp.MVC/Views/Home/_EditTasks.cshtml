@@ -6,7 +6,8 @@
 }
 
 <header class="mb-3 mt-3"><h1 class="text-center"></h1></header>
-<form id="EditTaskForm" asp-action="UpdateTask" method="post">
+<form id="EditTaskForm" asp-action="UpdateTask"  method="post">
+    @Html.HiddenFor(t=>t.TaskId)
     @Html.HiddenFor(t=>t.ToDoId)
     <div class="mb-3">
         <label asp-for="Name" class="form-label">New Task Name</label>
@@ -14,8 +15,8 @@
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label asp-for="Priority" class="form-label">New Priority</label>
-        <select class="form-select">
+        <label  class="form-label">New Priority</label>
+        <select class="form-select" asp-for="Priority">
             <option selected value="1">One (High)</option>
             <option value="2">Two (Medium)</option>
             <option value="3">Three (Low)</option>
