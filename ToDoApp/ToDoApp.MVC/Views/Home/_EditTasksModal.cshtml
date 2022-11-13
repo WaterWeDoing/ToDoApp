@@ -1,7 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model TaskModel
+@model TodoTaskViewModel
 
 <div class="modal fade" id="EditTaskModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog-centered modal-dialog">
@@ -12,7 +12,7 @@
       </div>
       <div class="modal-body">
           
-        @await Html.PartialAsync("_EditTasks", Model)
+        @await Html.PartialAsync("_EditTasks", new TaskModel {ToDoId = Model})
       </div>
     </div>
   </div>

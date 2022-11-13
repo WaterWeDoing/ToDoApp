@@ -15,7 +15,6 @@
 <div>
     @foreach (var t in Model.Tasks)
     {
-        Model.task = t;
         <ul class="list-group my-3">
             <li class="list-group-item">
                 <span>
@@ -45,7 +44,7 @@
 
 
 @await Html.PartialAsync("_AddTaskModal", Model.ToDo.ToDoId)
-@await Html.PartialAsync("_EditTasksModal", Model.task)
+@await Html.PartialAsync("_EditTasksModal", Model.ToDo.ToDoId)
 
 @section Scripts
 {

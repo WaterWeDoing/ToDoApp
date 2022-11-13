@@ -47,10 +47,20 @@ namespace ToDoApp.MVC.Controllers
             });
         }
 
-        public async Task<IActionResult> UpdateTask(TaskModel task)
+        public async Task<IActionResult> UpdateTask(TodoTaskViewModel todoTaskViewModel)
         {
+            TaskModel updatedTask;
             
-            await _taskRepo.Update(task);
+            foreach (var t in todoTaskViewModel.Tasks)
+            {
+                if (t.TaskId == todoTaskViewModel.task.TaskId)
+                {
+                    updatedTask = todoTaskViewModel.task;
+                }
+            }
+
+            Console.WriteLine("test");
+            await _taskRepo.Update(updatedTask);
             
             return RedirectToAction(nameof(DisplayTasks), new { id = task.ToDoId });
         }
