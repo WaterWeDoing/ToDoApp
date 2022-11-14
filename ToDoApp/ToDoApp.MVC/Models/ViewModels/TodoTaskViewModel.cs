@@ -4,7 +4,6 @@
     {
         public ToDoModel ToDo { get; set; }
         public List<TaskModel> Tasks { get; set; }
-
         public TaskModel task { get; set; }
     }
 }

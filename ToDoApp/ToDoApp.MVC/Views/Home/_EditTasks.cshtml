@@ -1,30 +1,38 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model TaskModel
+@model TodoTaskViewModel
 @{
 }
 
+
+
 <header class="mb-3 mt-3"><h1 class="text-center"></h1></header>
-<form id="EditTaskForm" asp-action="UpdateTask"  method="post">
-    @Html.HiddenFor(t=>t.ToDoId)
-    @Html.HiddenFor(t=>t.TaskId)
+<form id="EditTaskForm" asp-action="UpdateTask" method="post">
+    @Html.HiddenFor(t=>t.ToDo.ToDoId)
+    @Html.HiddenFor(t=>t.task.TaskId)
+    @if (true)
+{
+    var test = Model.task;
+    var test2 = Model.ToDo;
+
+}
     <div class="mb-3">
-        <label asp-for="Name" class="form-label">New Task Name</label>
-        <input class="form-control" asp-for="Name">
-        <span asp-validation-for="Name" class="text-danger"></span>
+        <label asp-for="task.Name" class="form-label">New Task Name</label>
+        <input class="form-control" asp-for="task.Name">
+        <span asp-validation-for="task.Name" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label  class="form-label">New Priority</label>
-        <select class="form-select" asp-for="Priority">
+        <select class="form-select" asp-for="task.Priority">
             <option selected value="1">One (High)</option>
             <option value="2">Two (Medium)</option>
             <option value="3">Three (Low)</option>
         </select>
     </div>
     <div class="mb-3">
-        <label class="form-label" asp-for="Deadline">New DeadLine</label>
-        <input type="date" class="form-control" asp-for="Deadline"
+        <label class="form-label" asp-for="task.Deadline">New DeadLine</label>
+        <input type="date" class="form-control" asp-for="task.Deadline"
                value="@DateTime.Today.ToString("yyyy-MM-dd")"
                min="@DateTime.Today.ToString("yyyy-MM-dd")">
     </div>

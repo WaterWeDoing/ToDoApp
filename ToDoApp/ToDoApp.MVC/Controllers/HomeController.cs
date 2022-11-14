@@ -49,20 +49,12 @@ namespace ToDoApp.MVC.Controllers
 
         public async Task<IActionResult> UpdateTask(TodoTaskViewModel todoTaskViewModel)
         {
-            TaskModel updatedTask;
-            
-            foreach (var t in todoTaskViewModel.Tasks)
-            {
-                if (t.TaskId == todoTaskViewModel.task.TaskId)
-                {
-                    updatedTask = todoTaskViewModel.task;
-                }
-            }
+            TaskModel updatedTask = todoTaskViewModel.task;
+            updatedTask.ToDoId = todoTaskViewModel.ToDo.ToDoId;
 
-            Console.WriteLine("test");
             await _taskRepo.Update(updatedTask);
             
-            return RedirectToAction(nameof(DisplayTasks), new { id = task.ToDoId });
+            return RedirectToAction(nameof(DisplayTasks), new { id = updatedTask.ToDoId });
         }
 
 
